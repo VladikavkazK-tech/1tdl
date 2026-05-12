@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой список задач</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+    <!-- Экран авторизации -->
+    <div id="authSection" class="auth-section">
+        <h2>Вход в приложение</h2>
+        <input type="text" id="username" placeholder="Имя пользователя" required>
+        <input type="password" id="password" placeholder="Пароль" required>
+        <button id="loginBtn">Войти</button>
+    </div>
+
+    <!-- Основное приложение (скрыто до авторизации) -->
+    <div id="todoApp" class="todo-app" style="display: none;">
+        <header>
+            <h1>Мой список задач</h1>
+            <div class="user-info">
+                <span id="currentUser"></span>
+                <div class="theme-switch">
+                    <input type="checkbox" id="themeSwitch" class="theme-switch__input">
+            <label for="themeSwitch" class="theme-switch__label">
+                <span class="theme-switch__icon theme-switch__icon--sun">☀️</span>
+                <span class="theme-switch__icon theme-switch__icon--moon">🌙</span>
+            </label>
+        </div>
+                <button id="logoutBtn">Выйти</button>
+            </div>
+        </header>
+
+        <!-- Ввод новой задачи -->
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Введите новую задачу...">
+            <button id="addTaskBtn">Добавить</button>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="active">Активные</button>
+            <button class="filter-btn" data-filter="completed">Завершённые</button>
+        </div>
+
+        <!-- Список задач -->
+        <ul id="taskList" class="task-list">
+            <!-- Задачи будут добавляться здесь через JavaScript -->
+        </ul>
+
+        <!-- Статистика и очистка -->
+        <div class="stats">
+            <span id="taskCount">0 задач, из них 0 завершено</span>
+            <button id="clearCompletedBtn" class="clear-btn" disabled>Очистить завершённые</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Фоновые элементы: солнце и луна -->
+
+    <div class="background-elements">
+    <div class="sun"></div>
+    <div class="moon"></div>
+    </div>
+</body>
+</html>

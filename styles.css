@@ -1,0 +1,978 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #e6e9f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* Стили авторизации */
+.auth-section {
+    background: #f0f3f7;
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 20px 20px 60px #d9dbe1, -20px -20px 60px #ffffff;
+}
+
+.auth-section h2 {
+    margin-bottom: 30px;
+    color: #2d3436;
+    font-weight: 600;
+}
+
+#username, #password {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: none;
+    background: #f0f3f7;
+    border-radius: 16px;
+    font-size: 16px;
+    box-shadow: inset 8px 8px 16px #d9dbe1, inset -8px -8px 16px #ffffff;
+    outline: none;
+}
+
+#loginBtn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#loginBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Основные стили приложения */
+.todo-app {
+    background: #f0f3f7;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 20px 20px 60px #d9dbe1, -20px -20px 60px #ffffff;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logoutBtn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Секция ввода */
+.input-section {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    background: #f0f3f7;
+    border-radius: 16px;
+    font-size: 16px;
+    box-shadow: inset 8px 8px 16px #d9dbe1, inset -8px -8px 16px #ffffff;
+    outline: none;
+}
+
+#addTaskBtn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Фильтры */
+.filters {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #f0f3f7;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: inset 5px 5px 10px #d9dbe1, inset -5px -5px 10px #ffffff;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: none;
+}
+
+/* Список задач */
+.task-list {
+    list-style: none;
+    padding: 0 20px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid #e6e9f0;
+    animation: slideIn 0.3s ease;
+    background: #f0f3f7;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 10px #d9dbe1, -5px -5px 10px #ffffff;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+        box-shadow: none;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 5px 5px 10px #d9dbe1, -5px -5px 10px #ffffff;
+    }
+}
+
+.task-item.removed {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+        overflow: hidden;
+    }
+}
+
+.task-checkbox {
+    margin-right: 16px;
+    width: 22px;
+    height: 22px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #f0f3f7;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: inset 4px 4px 8px #d9dbe1, inset -4px -4px 8px #ffffff;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.task-checkbox:checked {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-checkbox:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.task-text {
+    flex: 1;
+    font-size: 16px;
+    color: #2d3436;
+    word-break: break-word;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: #888;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.edit-btn {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.delete-btn {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.edit-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: scale(1.05);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    transform: scale(1.05);
+}
+
+/* Статистика и очистка */
+.stats {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #636e72;
+    font-size: 14px;
+    border-top: 1px solid #e6e9f0;
+    background: #f8f9fa;
+    border-radius: 0 0 24px 24px;
+}
+
+#taskCount {
+    font-weight: 500;
+}
+
+.clear-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 5px 5px 15px rgba(255, 107, 107, 0.2), -5px -5px 15px white;
+}
+
+.clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 8px 20px rgba(255, 107, 107, 0.3), -8px -8px 20px white;
+}
+
+.clear-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 5px 5px 15px #a2a9b1, -5px -5px 15px #ffffff;
+}
+
+/* Сообщение об отсутствии задач */
+.no-tasks {
+    text-align: center;
+    padding: 40px 20px;
+    color: #636e72;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .auth-section, .todo-app {
+        border-radius: 20px;
+        padding: 30px 20px;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    #taskInput {
+        font-size: 14px;
+    }
+
+    .task-item {
+        padding: 12px 0;
+    }
+}
+
+/* Плавные переходы для всего приложения */
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root {
+    /* Светлые цвета (по умолчанию) */
+    --bg-color: #e6e9f0;
+    --container-bg: #f0f3f7;
+    --text-color: #2d3436;
+    --secondary-text: #636e72;
+    --accent-gradient: linear-gradient(135deg, #667eea, #764ba2);
+    --success-gradient: linear-gradient(135deg, #4CAF50, #45a049);
+    --danger-gradient: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    --input-bg: #f0f3f7;
+    --shadow-inset: inset 8px 8px 16px #d9dbe1, inset -8px -8px 16px #ffffff;
+    --shadow-large: 20px 20px 60px #d9dbe1, -20px -20px 60px #ffffff;
+    --task-item-bg: #f0f3f7;
+}
+
+[data-theme="dark"] {
+    /* Тёмные цвета — улучшенная палитра */
+    --bg-color: #121212;
+    --container-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --secondary-text: #a0a0a0;
+    --accent-gradient: linear-gradient(135deg, #7c61ff, #9a6cff);
+    --success-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+    --danger-gradient: linear-gradient(135deg, #f44336, #ef5350);
+    --input-bg: #2a2a2a;
+    --task-item-bg: #252525;
+
+    /* Корректные тени для тёмного режима (Neumorphism) */
+    --shadow-inset: inset 4px 4px 8px #1a1a1a, inset -4px -4px 8px #282828;
+    --shadow-large: 8px 8px 16px #0c0c0c, -8px -8px 16px #262626;
+}
+
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* Стили авторизации */
+.auth-section {
+    background: var(--container-bg);
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-large);
+}
+
+.auth-section h2 {
+    margin-bottom: 30px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+#username, #password {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: none;
+    background: var(--input-bg);
+    border-radius: 16px;
+    font-size: 16px;
+    box-shadow: var(--shadow-inset);
+    outline: none;
+    color: var(--text-color);
+}
+
+#loginBtn {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#loginBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Основные стили приложения */
+.todo-app {
+    background: var(--container-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-large);
+}
+
+header {
+    background: var(--accent-gradient);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logoutBtn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.theme-btn {
+    background: none;
+    border: 1px solid var(--secondary-text);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Остальные стили (используют переменные) */
+.input-section {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    background: var(--input-bg);
+    border-radius: 16px;
+    font-size: 16px;
+    box-shadow: var(--shadow-inset);
+    outline: none;
+    color: var(--text-color);
+}
+
+#addTaskBtn {
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.filters {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    background: var(--input-bg);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: inset 5px 5px 10px #d9dbe1, inset -5px -5px 10px #ffffff;
+}
+
+.filter-btn.active {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: none;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0 20px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(230, 233, 240, 0.3);
+    animation: slideIn 0.3s ease;
+    background: var(--task-item-bg);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 10px var(--bg-color), -5px -5px 10px var(--container-bg);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+        box-shadow: none;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 5px 5px 10px var(--bg-color), -5px -5px 10px var(--container-bg);
+    }
+}
+
+.task-item.removed {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+        overflow: hidden;
+    }
+}
+
+.task-checkbox {
+    margin-right: 16px;
+    width: 22px;
+    height: 22px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--input-bg);
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: inset 4px 4px 8px var(--bg-color), inset -4px -4px 8px var(--container-bg);
+    position: relative;
+    transition: all 0.3s;
+}
+
+.task-checkbox:checked {
+    background: var(--accent-gradient);
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-checkbox:checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.task-text {
+    flex: 1;
+    font-size: 16px;
+    color: var(--text-color);
+    word-break: break-word;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: var(--secondary-text);
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.edit-btn {
+    color: var(--accent-gradient);
+    background: rgba(139, 147, 255, 0.1);
+}
+
+.delete-btn {
+    color: var(--danger-gradient);
+    background: rgba(255, 138, 138, 0.1);
+}
+
+.edit-btn:hover {
+    background: rgba(139, 147, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 138, 138, 0.2);
+    transform: scale(1.05);
+}
+
+/* Статистика и очистка */
+.stats {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--secondary-text);
+    font-size: 14px;
+    border-top: 1px solid rgba(230, 233, 240, 0.3);
+    background: var(--container-bg);
+    border-radius: 0 0 24px 24px;
+}
+
+#taskCount {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.clear-btn {
+    background: var(--danger-gradient);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 5px 5px 15px rgba(255, 107, 107, 0.2), -5px -5px 15px var(--bg-color);
+}
+
+.clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 8px 20px rgba(255, 107, 107, 0.3), -8px -8px 20px var(--bg-color);
+}
+
+.clear-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 5px 5px 15px #a2a9b1, -5px -5px 15px var(--bg-color);
+}
+
+/* Сообщение об отсутствии задач */
+.no-tasks {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--secondary-text);
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .auth-section, .todo-app {
+        border-radius: 20px;
+        padding: 30px 20px;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    #taskInput {
+        font-size: 14px;
+    }
+
+    .task-item {
+        padding: 12px 0;
+    }
+}
+
+/* Плавные переходы для всего приложения */
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшенные тени для элементов в тёмном режиме */
+[data-theme="dark"] .task-item {
+    box-shadow: 4px 4px 8px #0c0c0c, -4px -4px 8px #282828;
+}
+
+[data-theme="dark"] .filter-btn.active {
+    box-shadow: none;
+}
+
+/* Плавные переходы для всех элементов */
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Стили для кнопки переключения темы */
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--secondary-text);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+[data-theme="dark"] .theme-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--secondary-text);
+}
+
+/* Контейнер переключателя темы */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+/* Скрываем стандартный чекбокс */
+.theme-switch__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Стили для лейбла-переключателя */
+.theme-switch__label {
+    display: block;
+    background: var(--container-bg);
+    border-radius: 30px;
+    box-shadow: var(--shadow-inset);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+/* Иконки солнца и луны */
+.theme-switch__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: var(--secondary-text);
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+.theme-switch__icon--sun {
+    left: 8px;
+}
+
+.theme-switch__icon--moon {
+    right: 8px;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+}
+
+/* Состояние при включённой тёмной теме */
+.theme-switch__input:checked + .theme-switch__label {
+    background: #1e1e1e;
+    box-shadow: inset 2px 2px 4px #1a1a1a, inset -2px -2px 4px #222222;
+}
+
+.theme-switch__input:checked ~ .theme-switch__icon--sun {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px) scale(0.8);
+}
+
+.theme-switch__input:checked ~ .theme-switch__icon--moon {
+    opacity: 1;
+    transform: translateY(-50%) translateX(10px) scale(1);
+    color: #ffd166; /* Золотистый цвет для луны */
+}
+
+/* Анимация при переключении */
+.theme-switch__label::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 3px;
+    top: 3px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.theme-switch__input:checked + .theme-switch__label::before {
+    transform: translateX(28px);
+    background: #ffd166; /* Цвет солнца */
+}
+
+/* Контейнер для фоновых элементов */
+.background-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Позади основного контента */
+    pointer-events: none; /* Не мешает взаимодействию с интерфейсом */
+}
+
+/* Солнце */
+.sun {
+    position: absolute;
+    top: 80px;
+    right: 80px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle,
+        #ffd166 0%,
+        #ff9e00 70%,
+        transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(255, 209, 102, 0.7);
+    animation: sun-glow 3s ease-in-out infinite alternate;
+    opacity: 1;
+    transition: all 0.8s ease;
+}
+
+/* Луна */
+.moon {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle,
+        #fff 0%,
+        #e0e0e0 40%,
+        transparent 70%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 30px rgba(255, 255, 255, 0.3),
+        0 0 60px rgba(255, 255, 255, 0.2),
+        0 0 90px rgba(255, 255, 255, 0.1);
+    clip-path: circle(50% at 65% 50%);
+    opacity: 0;
+    transition: all 0.8s ease;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+}
+
+/* Анимация для солнца */
+@keyframes sun-glow {
+    0% {
+        box-shadow: 0 0 50px rgba(255, 209, 102, 0.7);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 70px rgba(255, 209, 102, 0.9);
+        transform: scale(1.08);
+    }
+}
+
+/* Стили для тёмной темы */
+[data-theme="dark"] .sun {
+    opacity: 0;
+    transform: translateX(150px);
+}
+
+[data-theme="dark"] .moon {
+    opacity: 1;
+    transform: translateX(-150px);
+}
+
+/* Плавные переходы */
+* {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.theme-light .sun {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+body.theme-light .moon {
+    opacity: 0;
+    transform: translateX(0);
+}
+
+body.theme-dark .sun {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+body.theme-dark .moon {
+    opacity: 1;
+    transform: translateX(-100px);
+}
